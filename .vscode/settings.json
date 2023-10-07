@@ -1,0 +1,10 @@
+{
+    "editor.guides.indentation": false,
+    "editor.guides.highlightActiveIndentation": true,
+    "editor.autoIndent": "full",
+    "editor.detectIndentation": true,
+    "thunder-client.sidebar.treeIndentation": 0,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.guides.bracketPairsHorizontal": "active",
+    "editor.guides.bracketPairs": "active"
+}
