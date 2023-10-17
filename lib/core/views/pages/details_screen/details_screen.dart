@@ -76,7 +76,7 @@ class DetailScreen extends StatelessWidget {
               Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "12 - 04 - 2023",
+                    date,
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,

@@ -1,13 +1,10 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
-import 'package:note_app/core/controller/db_controller.dart';
 
 import '../../../controller/home_screen_controller.dart';
 import '../../../model/data_model.dart';
 import '../../../utils/color_constants/color_constants.dart';
+import '../details_screen/details_screen.dart';
 import 'widgets/notes_card.dart';
 // import 'package:hive/hive.dart';
 
@@ -19,10 +16,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController todoController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+
+  @override
+  void initState() {
+    _loadNotes();
+    super.initState();
+  }
+
+  Future<void> _loadNotes() async {
+    final List<NoteModel> notes = await _homeController.getNotes();
+    setState(() {
+      _homeController.noteList = notes;
+    });
+  }
 
   int? isSelectedColorIndex;
   Color? selectedColor;
@@ -58,18 +67,30 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: ListView.builder(
-        itemCount: _homeController.noteModel.length,
+        itemCount: _homeController.noteList.length,
         itemBuilder: (context, index) {
-          return NotesCard(
-            index: index,
-            title: _homeController.noteModel[index].title,
-            des: _homeController.noteModel[index].description,
-            date: _homeController.noteModel[index].dateTime,
-            color: _homeController.noteModel[index].color,
-            onDelete: () {
-              _homeController.deleteNote(index);
-              setState(() {});
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => DetailScreen(
+                        title: _homeController.noteList[index].title,
+                        description:
+                            _homeController.noteList[index].description,
+                        date: _homeController.noteList[index].dateTime,
+                        color: _homeController.noteList[index].color,
+                      )));
             },
+            child: NotesCard(
+              index: index,
+              title: _homeController.noteList[index].title,
+              des: _homeController.noteList[index].description,
+              date: _homeController.noteList[index].dateTime,
+              color: _homeController.noteList[index].color,
+              onDelete: () {
+                _homeController.deleteNote(index);
+                setState(() {});
+              },
+            ),
           );
         },
       ),
@@ -186,10 +207,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: SizedBox(
-                      height: 20,
+                      height: 25,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          physics: const NeverScrollableScrollPhysics(),
+                          // physics: const NeverScrollableScrollPhysics(),
                           // shrinkWrap: true,
                           itemCount: ColorConstants.color.length,
                           itemBuilder: (context, index) {
@@ -201,13 +222,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 });
                               },
                               child: CircleAvatar(
-                                radius: 15,
+                                radius: 20,
                                 backgroundColor: ColorConstants.color[index],
                                 child: isSelectedColorIndex == index
                                     ? Icon(
                                         Icons.check,
                                         color: Colors.white,
-                                        size: 13,
+                                        size: 20,
                                       )
                                     : null,
                               ),
@@ -222,10 +243,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       setState(() {
                         _homeController.addNotes(NoteModel(
-                          color: selectedColor!,
+                          color: selectedColor ?? Colors.black,
                           title: titleController.text,
                           description: descriptionController.text,
-                          dateTime: "12 - 2 -2023",
+                          dateTime:
+                              "${selectedDate.day}  - ${selectedDate.month} - ${selectedDate.year}",
                         ));
 
                         Navigator.of(context).pop();
@@ -234,10 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         descriptionController.clear();
                         dateController.clear();
                         isSelectedColorIndex = 20;
-                        selectedColor = null;
-
-                        addData();
-                        getData();
+                        selectedColor = Colors.black;
                       });
                     },
                     child: Container(
@@ -245,7 +264,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 50,
                       decoration: BoxDecoration(
                           color: selectedColor ?? Colors.black,
-                          // border: Border.all(color: Colors.black),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                           child: Text(

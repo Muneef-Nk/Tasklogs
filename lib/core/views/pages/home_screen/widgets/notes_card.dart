@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../controller/home_screen_controller.dart';
-import '../../details_screen/details_screen.dart';
-
 class NotesCard extends StatefulWidget {
   const NotesCard({
     super.key,
@@ -26,21 +23,9 @@ class NotesCard extends StatefulWidget {
 }
 
 class _NotesCardState extends State<NotesCard> {
-  // HomeScreenController _homeController = HomeScreenController();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => DetailScreen(
-        //           title: _homeController.noteModel[widget.index].title,
-        //           description:
-        //               _homeController.noteModel[widget.index].description,
-        //           date: _homeController.noteModel[widget.index].dateTime,
-        //           color: _homeController.noteModel[widget.index].color,
-        //         )));
-      },
       child: Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(bottom: 20, left: 25, right: 25),
@@ -84,7 +69,7 @@ class _NotesCardState extends State<NotesCard> {
             Padding(
               padding: const EdgeInsets.only(right: 25),
               child: Text(
-                'date',
+                widget.date,
                 style: TextStyle(color: Colors.white),
               ),
             )
