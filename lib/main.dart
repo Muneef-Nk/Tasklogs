@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
 
-import 'core/model/data_model.dart';
-import 'core/views/pages/home_screen/home_screen.dart';
+import 'controller/home_screen_controller.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'model/data_model.dart';
+import 'views/pages/home_screen/home_screen.dart';
 
 void main() async {
-  await Hive.initFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
   Hive.registerAdapter(NoteModelAdapter());
-  Hive.openBox<List<NoteModel>>('notes');
-  runApp(const MyApp());
+
+  await Hive.initFlutter();
+  await Hive.openBox<NoteModel>('notesBox');
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +21,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => HomeScreenController()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+      ),
     );
   }
 }
