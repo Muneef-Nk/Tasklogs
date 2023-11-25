@@ -27,6 +27,7 @@ class _NotesCardState extends State<NotesCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
+        height: 150,
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(bottom: 20, left: 25, right: 25),
         decoration: BoxDecoration(
@@ -47,11 +48,19 @@ class _NotesCardState extends State<NotesCard> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              subtitle: Text(
-                widget.des,
-                style: TextStyle(color: Colors.white),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              subtitle: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    widget.des,
+                    style: TextStyle(color: Colors.white),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
               trailing: Column(
                 children: [
@@ -67,7 +76,7 @@ class _NotesCardState extends State<NotesCard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 25),
+              padding: const EdgeInsets.only(right: 5, top: 20),
               child: Text(
                 widget.date,
                 style: TextStyle(color: Colors.white),
