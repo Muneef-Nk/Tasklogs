@@ -1,16 +1,6 @@
-# note_app
+Notes App using hive
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/8e378d29-82a9-4587-b43b-dc968c82f29a" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/85989524-ea1f-4f14-a918-9553537b2fb4" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/6aeb708e-2698-4c0a-9d4a-1d835eb34ff3" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/6dc48a84-71d2-41ac-a0cd-028d4c4da19a" width="200" height="400"/>
