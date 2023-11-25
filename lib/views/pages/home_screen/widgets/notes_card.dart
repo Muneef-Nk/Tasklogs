@@ -15,7 +15,7 @@ class NotesCard extends StatefulWidget {
   final String title;
   final String des;
   final String date;
-  final int color;
+  final Color color;
   final Function() onDelete;
 
   @override
@@ -31,7 +31,7 @@ class _NotesCardState extends State<NotesCard> {
         margin: EdgeInsets.only(bottom: 20, left: 25, right: 25),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(widget.color),
+          color: widget.color,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,

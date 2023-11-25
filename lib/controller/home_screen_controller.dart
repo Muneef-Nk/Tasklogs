@@ -6,6 +6,12 @@ import '../model/data_model.dart';
 class HomeScreenController with ChangeNotifier {
   List<NoteModel> noteList = [];
   var box = Hive.box<NoteModel>('notesBox');
+  int? isSelectedColorIndex;
+  int? selectedColor;
+  DateTime selectedDate = DateTime.now();
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void addNotes(NoteModel noteModel) async {
     // noteList.add(newList);
@@ -23,8 +29,8 @@ class HomeScreenController with ChangeNotifier {
     notifyListeners();
   }
 
-  updateNotes(int index, NoteModel noteModel) {
-    box.putAt(index, noteModel);
+  updateNotes(int index, NoteModel noteModel) async {
+    await box.putAt(index, noteModel);
     notifyListeners();
   }
 }
