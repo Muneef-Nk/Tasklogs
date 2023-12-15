@@ -14,6 +14,7 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
   @override
   void initState() {
+    Provider.of<TodoScreenController>(context, listen: false).getCompltedTask();
     super.initState();
   }
 
@@ -58,10 +59,11 @@ class _TodoScreenState extends State<TodoScreen> {
                         )
                       ]),
                       child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 15),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 15, top: 10, bottom: 10),
                         margin: EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width * 0.95,
-                        height: 80,
+                        // height: 80,
                         decoration: BoxDecoration(
                             color: Colors.grey[900],
                             borderRadius: BorderRadius.circular(10)),
@@ -81,7 +83,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                 //update check
                                 Provider.of<TodoScreenController>(context,
                                         listen: false)
-                                    .todoUpdate(
+                                    .taskCompleted(
                                   index: index,
                                   todoModel: TodoModel(
                                     task: provider.todoList[index].task,
@@ -91,17 +93,18 @@ class _TodoScreenState extends State<TodoScreen> {
                                   ),
                                 );
 
-                                Provider.of<TodoScreenController>(context,
-                                        listen: false)
-                                    .getCompltedTask();
                                 setState(() {});
                               },
                             ),
-                            Text(
-                              provider.todoList[index].task,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                            Container(
+                              // color: Colors.amber,
+                              width: 160,
+                              child: Text(
+                                provider.todoList[index].task,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
                             Container(
@@ -161,10 +164,11 @@ class _TodoScreenState extends State<TodoScreen> {
                         )
                       ]),
                       child: Container(
-                        padding: EdgeInsets.only(left: 10, right: 15),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 15, top: 10, bottom: 10),
                         margin: EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width * 0.95,
-                        height: 80,
+                        // height: 80,
                         decoration: BoxDecoration(
                             color: Colors.grey[900],
                             borderRadius: BorderRadius.circular(10)),
@@ -176,32 +180,36 @@ class _TodoScreenState extends State<TodoScreen> {
                               value: provider.completedList[index].isCompleted,
                               side: BorderSide(color: Colors.white, width: 2),
                               onChanged: (bool? newValue) {
-                                //check box
-                                // Provider.of<TodoScreenController>(context,
-                                //         listen: false)
-                                //     .changeCheckValue(index);
+                                // check box
+                                Provider.of<TodoScreenController>(context,
+                                        listen: false)
+                                    .changeCheckCompleted(index);
 
-                                //update check
-                                // Provider.of<TodoScreenController>(context,
-                                //         listen: false)
-                                //     .todoUpdate(
-                                //   index: index,
-                                //   todoModel: TodoModel(
-                                //     task: provider.todoList[index].task,
-                                //     priority: provider.todoList[index].priority,
-                                //     isCompleted:
-                                //         provider.todoList[index].isCompleted,
-                                //   ),
-                                // );
-                                // setState(() {});
+                                // update check
+                                Provider.of<TodoScreenController>(context,
+                                        listen: false)
+                                    .taskInCompleted(
+                                  index: index,
+                                  todoModel: TodoModel(
+                                    task: provider.completedList[index].task,
+                                    priority:
+                                        provider.completedList[index].priority,
+                                    isCompleted: provider
+                                        .completedList[index].isCompleted,
+                                  ),
+                                );
+                                setState(() {});
                               },
                             ),
-                            Text(
-                              provider.completedList[index].task,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  decoration: TextDecoration.lineThrough),
+                            SizedBox(
+                              width: 160,
+                              child: Text(
+                                provider.completedList[index].task,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    decoration: TextDecoration.lineThrough),
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.only(
@@ -211,7 +219,8 @@ class _TodoScreenState extends State<TodoScreen> {
                                               .completedList[index].priority ==
                                           "Low priority"
                                       ? Colors.red
-                                      : provider.todoList[index].priority ==
+                                      : provider.completedList[index]
+                                                  .priority ==
                                               "Medium priority"
                                           ? Color.fromARGB(255, 208, 191, 37)
                                           : Colors.green,

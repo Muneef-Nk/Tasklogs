@@ -8,9 +8,15 @@ class TodoScreenController with ChangeNotifier {
   var box = Hive.box<TodoModel>('todoBox');
   var boxCompleted = Hive.box<TodoModel>('todoCompletedBox');
 
-//change check box value
+//change box value for todolist
   changeCheckValue(int index) {
-    todoList[index].isCompleted = !todoList[index].isCompleted;
+    todoList[index].isCompleted = true;
+    notifyListeners();
+  }
+
+  //change box value for completedlist
+  changeCheckCompleted(int index) {
+    completedList[index].isCompleted = false;
     notifyListeners();
   }
 
@@ -28,15 +34,21 @@ class TodoScreenController with ChangeNotifier {
   }
 
 //update todo
-  todoUpdate({required int index, required TodoModel todoModel}) async {
-    // await box.putAt(index, todoModel);
+  taskCompleted({required int index, required TodoModel todoModel}) async {
+    print(todoModel.isCompleted);
 
-    await boxCompleted.add(todoModel);
-    // completedList.add(todoModel);
-
+    boxCompleted.add(todoModel);
+    completedList.add(todoModel);
     box.deleteAt(index);
-
     getTodo();
+    notifyListeners();
+  }
+
+  taskInCompleted({required int index, required TodoModel todoModel}) {
+    box.add(todoModel);
+    todoList.add(todoModel);
+    boxCompleted.deleteAt(index);
+    getCompltedTask();
     notifyListeners();
   }
 
@@ -49,12 +61,29 @@ class TodoScreenController with ChangeNotifier {
 
   getCompltedTask() async {
     completedList = await boxCompleted.values.toList();
+    print(completedList);
     notifyListeners();
   }
 
   void deleteCompletedTodo(int index) {
     boxCompleted.deleteAt(index);
     completedList.removeAt(index);
+    notifyListeners();
+  }
+
+  List lowPriority = [];
+  List mediumPriority = [];
+  List highPriority = [];
+
+  todoSort(String priority) {
+    for (int i = 0; i <= todoList.length; i++) {
+      if (priority == todoList[i].priority) {
+        lowPriority.add(
+            TodoModel(task: todoList[i].task, priority: todoList[i].priority));
+        print("added data low priority");
+        notifyListeners();
+      }
+    }
     notifyListeners();
   }
 }

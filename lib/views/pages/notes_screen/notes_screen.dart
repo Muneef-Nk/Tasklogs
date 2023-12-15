@@ -157,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 //commen app bar
   AppBar appbar(BuildContext context) {
+    final provider = Provider.of<TodoScreenController>(context);
     return AppBar(
         backgroundColor: Color.fromARGB(66, 29, 28, 28),
         toolbarHeight: 70,
@@ -174,8 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
           isNotesSeleted == 1
               ? PopupMenuButton(
                   onSelected: (value) {
-                    var provider = Provider.of<TodoScreenController>(context);
-                    provider.todoList.sort();
+                    Provider.of<TodoScreenController>(context).todoSort(value);
                     print(value);
                   },
                   itemBuilder: (context) {
@@ -263,19 +263,44 @@ class _HomeScreenState extends State<HomeScreen> {
           preferredSize: Size.fromHeight(135),
           child: Column(
             children: [
-              Container(
-                height: 70,
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                child: TextField(
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey[800],
-                        hintStyle: TextStyle(color: Colors.white),
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.white)))),
-              ),
+              isNotesSeleted == 0
+                  ? Container(
+                      height: 70,
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                      child: TextField(
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.grey[800],
+                              hintStyle: TextStyle(color: Colors.white),
+                              hintText: "Search",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide:
+                                      BorderSide(color: Colors.white)))),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, bottom: 20, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Total Task ${provider.todoList.length + provider.completedList.length}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          Text(
+                            "Pending Tasks ${provider.todoList.length}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
               Container(
                 margin: EdgeInsets.only(bottom: 10),
                 height: 70,
