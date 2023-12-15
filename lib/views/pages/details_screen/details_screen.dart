@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/views/pages/home_screen/widgets/bottom_sheet.dart';
+import 'package:note_app/views/pages/notes_screen/widgets/notes_bottom_sheet.dart';
 
 class DetailScreen extends StatelessWidget {
   DetailScreen(
@@ -19,7 +19,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color,
+      backgroundColor: color.withOpacity(0.9),
       appBar: AppBar(
         toolbarHeight: 70,
         elevation: 0,
@@ -64,40 +64,36 @@ class DetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  )),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                color: Colors.white,
-                thickness: 2,
+              Text(
+                title,
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
               ),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    date,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  )),
+              // Divider(
+              //   color: Colors.white,
+              //   thickness: 2,
+              // ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                date,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
               SizedBox(
                 height: 20,
               ),
               Text(
                 description,
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                style: TextStyle(fontSize: 18, color: Colors.white),
                 textAlign: TextAlign.justify,
               ),
             ],

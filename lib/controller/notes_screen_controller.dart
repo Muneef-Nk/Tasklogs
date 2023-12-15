@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:note_app/model/note_model/data_model.dart';
 
-import '../model/data_model.dart';
-
-class HomeScreenController with ChangeNotifier {
+class NotesScreenController with ChangeNotifier {
   List<NoteModel> noteList = [];
   var box = Hive.box<NoteModel>('notesBox');
   int? isSelectedColorIndex;
