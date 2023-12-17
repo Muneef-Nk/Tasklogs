@@ -45,7 +45,6 @@ class _FloatingButtomState extends State<FloatingButtom> {
               bottomSheet(
                 context,
                 1,
-                isUpdate: false,
               );
             },
             backgroundColor: Colors.white,

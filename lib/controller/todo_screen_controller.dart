@@ -71,19 +71,32 @@ class TodoScreenController with ChangeNotifier {
     notifyListeners();
   }
 
-  List lowPriority = [];
-  List mediumPriority = [];
-  List highPriority = [];
+  // List lowPriority = [];
+  // List mediumPriority = [];
+  // List highPriority = [];
 
-  todoSort(String priority) {
-    for (int i = 0; i <= todoList.length; i++) {
-      if (priority == todoList[i].priority) {
-        lowPriority.add(
-            TodoModel(task: todoList[i].task, priority: todoList[i].priority));
-        print("added data low priority");
-        notifyListeners();
-      }
+  // todoSort(String priority) {
+  //   for (int i = 0; i <= todoList.length; i++) {
+  //     if (priority == todoList[i].priority) {
+  //       lowPriority.add(
+  //           TodoModel(task: todoList[i].task, priority: todoList[i].priority));
+  //       print("added data low priority");
+  //       notifyListeners();
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
+
+  void todoSort(String priority) {
+    // Implement sorting logic based on priority
+    if (priority == 'Low Priority') {
+      todoList.sort((a, b) => a.priority.compareTo(b.priority));
+    } else if (priority == 'Medium Priority') {
+      todoList.sort((a, b) => a.priority.compareTo(b.priority));
+    } else if (priority == 'High Priority') {
+      todoList.sort((a, b) => a.priority.compareTo(b.priority));
     }
+    // Notify listeners to update the UI
     notifyListeners();
   }
 }

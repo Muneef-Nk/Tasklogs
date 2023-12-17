@@ -3,22 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:note_app/controller/notes_screen_controller.dart';
 import 'package:note_app/model/note_model/data_model.dart';
 import 'package:note_app/utils/color_constants/color_constants.dart';
-import 'package:note_app/views/pages/notes_screen/notes_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<dynamic> bottomSheet(
   BuildContext context,
-  int index, {
-  required bool isUpdate,
-}) {
+  int index,
+) {
   final provider = Provider.of<NotesScreenController>(context, listen: false);
-  isUpdate
-      ? provider.titleController.text = provider.noteList[index].title
-      : null;
-  isUpdate
-      ? provider.descriptionController.text =
-          provider.noteList[index].description
-      : null;
 
   return showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -166,39 +157,21 @@ Future<dynamic> bottomSheet(
                   onTap: () async {
                     if (provider.titleController.text.isNotEmpty &&
                         provider.descriptionController.text.isNotEmpty) {
-                      isUpdate
-                          ? Provider.of<NotesScreenController>(
-                              context,
-                              listen: false,
-                            ).updateNotes(
-                              index,
-                              NoteModel(
-                                color: ColorConstants
-                                    .color[provider.isSelectedColorIndex ?? 0],
-                                title: provider.titleController.text,
-                                description:
-                                    provider.descriptionController.text,
-                                dateTime:
-                                    "${provider.selectedDate.day}  - ${provider.selectedDate.month} - ${provider.selectedDate.year}",
-                              ))
-                          : Provider.of<NotesScreenController>(
-                              context,
-                              listen: false,
-                            ).addNotes(NoteModel(
-                              color: ColorConstants
-                                  .color[provider.isSelectedColorIndex ?? 0],
-                              title: provider.titleController.text,
-                              description: provider.descriptionController.text,
-                              dateTime:
-                                  "${provider.selectedDate.day}  - ${provider.selectedDate.month} - ${provider.selectedDate.year}",
-                            ));
+                      Provider.of<NotesScreenController>(
+                        context,
+                        listen: false,
+                      ).addNotes(NoteModel(
+                        color: ColorConstants
+                            .color[provider.isSelectedColorIndex ?? 0],
+                        title: provider.titleController.text,
+                        description: provider.descriptionController.text,
+                        dateTime:
+                            "${provider.selectedDate.day}  - ${provider.selectedDate.month} - ${provider.selectedDate.year}",
+                      ));
+                      Provider.of<NotesScreenController>(context, listen: false)
+                          .getNotes();
 
-                      isUpdate
-                          ? Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()),
-                              (route) => false)
-                          : Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     } else {
                       print("enter somthing");
                     }
@@ -207,9 +180,6 @@ Future<dynamic> bottomSheet(
                     provider.descriptionController.clear();
 
                     provider.isSelectedColorIndex = null;
-
-                    Provider.of<NotesScreenController>(context, listen: false)
-                        .getNotes();
                   },
                   child: Container(
                     width: 200,
@@ -219,7 +189,7 @@ Future<dynamic> bottomSheet(
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                         child: Text(
-                      isUpdate ? 'Update' : 'Save',
+                      'Save',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,

@@ -17,7 +17,7 @@ class ColorConstants {
   //   Colors.greenAccent,
   // ];
   static List<int> color = [
-    Colors.black38.value,
+    Color.fromARGB(95, 42, 40, 40).value,
     Color.fromARGB(255, 236, 96, 86).value,
     Colors.yellow.value,
     Colors.green.value,
