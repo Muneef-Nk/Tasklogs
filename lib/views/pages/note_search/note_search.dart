@@ -66,7 +66,16 @@ class _NoteSearchState extends State<NoteSearch> {
                     ),
                   )),
               if (provider.newNoteList.isEmpty && _searchQuery.text.isNotEmpty)
-                Lottie.asset("assets/animation/notfound.json")
+                Column(
+                  children: [
+                    Lottie.asset("assets/animation/notfound.json", height: 250),
+                    Text(
+                      "Not Found",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )
               else
                 Padding(
                   padding: const EdgeInsets.only(

@@ -28,8 +28,8 @@ class NotesScreenController with ChangeNotifier {
     notifyListeners();
   }
 
-  getLayout() {
-    isGrid = gridBox.get("isGrid");
+  getLayout() async {
+    isGrid = await gridBox.get("isGrid");
     notifyListeners();
   }
 

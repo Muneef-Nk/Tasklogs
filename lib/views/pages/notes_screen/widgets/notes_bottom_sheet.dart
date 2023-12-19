@@ -66,10 +66,7 @@ Future<dynamic> bottomSheet(
                       borderRadius: BorderRadius.circular(10)),
                   child: TextField(
                     style: TextStyle(color: Colors.white),
-                    minLines: 2,
-                    maxLines: 10,
                     textInputAction: TextInputAction.done,
-                    // keyboardType: TextInputType.multiline,
                     controller: provider.descriptionController,
                     decoration: const InputDecoration(
                         hintStyle: TextStyle(color: Colors.white),
