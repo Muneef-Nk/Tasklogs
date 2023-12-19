@@ -5,6 +5,7 @@ import 'package:note_app/model/todo_model/todo_model.dart';
 class TodoScreenController with ChangeNotifier {
   List<TodoModel> todoList = [];
   List<TodoModel> completedList = [];
+  List priorityTodo = [];
   var box = Hive.box<TodoModel>('todoBox');
   var boxCompleted = Hive.box<TodoModel>('todoCompletedBox');
 
@@ -44,6 +45,7 @@ class TodoScreenController with ChangeNotifier {
     notifyListeners();
   }
 
+//add completed task to new list
   taskInCompleted({required int index, required TodoModel todoModel}) {
     box.add(todoModel);
     todoList.add(todoModel);
@@ -59,44 +61,17 @@ class TodoScreenController with ChangeNotifier {
     notifyListeners();
   }
 
+//get completed item to list
   getCompltedTask() async {
     completedList = await boxCompleted.values.toList();
     print(completedList);
     notifyListeners();
   }
 
+//delete completed task
   void deleteCompletedTodo(int index) {
     boxCompleted.deleteAt(index);
     completedList.removeAt(index);
-    notifyListeners();
-  }
-
-  // List lowPriority = [];
-  // List mediumPriority = [];
-  // List highPriority = [];
-
-  // todoSort(String priority) {
-  //   for (int i = 0; i <= todoList.length; i++) {
-  //     if (priority == todoList[i].priority) {
-  //       lowPriority.add(
-  //           TodoModel(task: todoList[i].task, priority: todoList[i].priority));
-  //       print("added data low priority");
-  //       notifyListeners();
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
-
-  void todoSort(String priority) {
-    // Implement sorting logic based on priority
-    if (priority == 'Low Priority') {
-      todoList.sort((a, b) => a.priority.compareTo(b.priority));
-    } else if (priority == 'Medium Priority') {
-      todoList.sort((a, b) => a.priority.compareTo(b.priority));
-    } else if (priority == 'High Priority') {
-      todoList.sort((a, b) => a.priority.compareTo(b.priority));
-    }
-    // Notify listeners to update the UI
     notifyListeners();
   }
 }

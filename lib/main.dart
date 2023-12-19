@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:note_app/controller/details_screen.dart';
 import 'package:note_app/controller/todo_screen_controller.dart';
 import 'package:note_app/model/note_model/data_model.dart';
 import 'package:note_app/model/todo_model/todo_model.dart';
+import 'package:note_app/views/pages/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/notes_screen_controller.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'views/pages/notes_screen/notes_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,7 @@ void main() async {
   await Hive.openBox<NoteModel>('notesBox');
   await Hive.openBox<TodoModel>('todoBox');
   await Hive.openBox<TodoModel>('todoCompletedBox');
+  await Hive.openBox('layoutBox');
 
   runApp(MyApp());
 }
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => NotesScreenController()),
         ChangeNotifierProvider(create: (context) => TodoScreenController()),
+        ChangeNotifierProvider(create: (context) => DetailsScreenController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -38,7 +41,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "poppins",
             bottomSheetTheme:
                 BottomSheetThemeData(backgroundColor: Colors.black)),
-        home: HomeScreen(),
+        home: SplashScreen(),
       ),
     );
   }

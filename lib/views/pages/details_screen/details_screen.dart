@@ -1,7 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:note_app/controller/details_screen.dart';
 import 'package:note_app/controller/notes_screen_controller.dart';
 import 'package:note_app/model/note_model/data_model.dart';
 import 'package:note_app/utils/color_constants/color_constants.dart';
@@ -29,7 +27,6 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   TextEditingController _titileController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -37,36 +34,18 @@ class _DetailScreenState extends State<DetailScreen> {
     _descriptionController = TextEditingController();
     _titileController.text = widget.title;
     _descriptionController.text = widget.description;
-  }
-
-  bool islisten = false;
-  FlutterTts flutterTts = FlutterTts();
-
-  speak(String text) async {
-    print("clicked");
-    try {
-      await flutterTts.setLanguage("en-US");
-      await flutterTts.setPitch(1);
-      await flutterTts.speak(text);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  stop() {
-    flutterTts.stop();
+    Provider.of<DetailsScreenController>(context, listen: false).seletedColor =
+        widget.color;
   }
 
   @override
   Widget build(BuildContext context) {
+    final detailsProvider = Provider.of<DetailsScreenController>(context);
     final provider = Provider.of<NotesScreenController>(context);
-    Color seletedColor = Color(widget.color.value);
 
     return Scaffold(
-      backgroundColor: seletedColor,
-      floatingActionButton: islisten
-          ? FloatingActionButton(elevation: 0, onPressed: () {})
-          : Text(""),
+      backgroundColor: detailsProvider.seletedColor,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         toolbarHeight: 70,
         elevation: 0,
@@ -79,6 +58,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       .newNoteList =
                   Provider.of<NotesScreenController>(context, listen: false)
                       .noteList;
+
               Navigator.of(context).pop();
             },
             child: CircleAvatar(
@@ -91,106 +71,78 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              //
-            },
-            child: Image.asset(
-              "assets/icon/picture.png",
-              width: 25,
-            ),
-          ),
-          SizedBox(width: 15),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                islisten = !islisten;
-              });
-            },
-            child: Image.asset(
-              "assets/icon/voice_search.png",
-              width: 25,
-            ),
-          ),
-          SizedBox(width: 15),
-          GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return StatefulBuilder(
-                      builder: (context, bottomSetState) {
-                        return Container(
-                            height: 60,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: ColorConstants.color.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      seletedColor =
-                                          Color(ColorConstants.color[index]);
-
-                                      Provider.of<NotesScreenController>(
-                                              context,
-                                              listen: false)
-                                          .updateNotes(
-                                              index,
-                                              NoteModel(
-                                                  color: Color(ColorConstants
-                                                          .color[index])
-                                                      .value,
-                                                  title: _titileController.text,
-                                                  description:
-                                                      _descriptionController
-                                                          .text,
-                                                  dateTime: widget.date));
-
-                                      Provider.of<NotesScreenController>(
-                                              context,
-                                              listen: false)
-                                          .getNotes();
-                                      bottomSetState(() {});
-
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      width: 60,
-                                      height: 60,
-                                      color: Color(ColorConstants.color[index]),
-                                      child: seletedColor ==
-                                              Color(ColorConstants.color[index])
-                                          ? Icon(
-                                              Icons.check,
-                                              color: Colors.white,
-                                              weight: 30,
-                                              size: 25,
-                                            )
-                                          : null,
-                                    ),
-                                  );
-                                }));
-                      },
-                    );
-                  });
-            },
-            child: Image.asset(
-              "assets/icon/theme_color.png",
-              width: 25,
-            ),
-          ),
-          SizedBox(width: 15),
-          GestureDetector(
-            onTap: () {
-              speak("muneef");
-              // stop();
-            },
-            child: Image.asset(
-              "assets/icon/text-to-speech.png",
-              width: 25,
-            ),
-          ),
-          SizedBox(width: 15),
+          PopupMenuButton(
+              onSelected: (value) {
+                Provider.of<DetailsScreenController>(context, listen: false)
+                    .detailsTools(
+                        value,
+                        context,
+                        _titileController.text,
+                        _descriptionController.text,
+                        widget.date,
+                        widget.color,
+                        widget.index);
+              },
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.palette_outlined,
+                            color: Colors.black,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Change Color",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      value: "Change Color"),
+                  PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Delete Note",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      value: "Delete Note"),
+                  PopupMenuItem(
+                      child: Row(
+                        children: [
+                          Icon(Icons.share),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Share",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      value: "Share"),
+                ];
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Icon(
+                  Icons.sort_sharp,
+                  size: 30,
+                  color: ColorConstants.white,
+                ),
+              ))
         ],
       ),
       body: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:note_app/controller/todo_screen_controller.dart';
+import 'package:note_app/utils/color_constants/color_constants.dart';
 import 'package:note_app/views/pages/todo_screen/todos_screen.dart';
 import 'package:note_app/views/widgets/appbar.dart';
 import 'package:note_app/views/widgets/floating_buttom.dart';
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     Provider.of<NotesScreenController>(context, listen: false).getNotes();
     Provider.of<TodoScreenController>(context, listen: false).getTodo();
+    Provider.of<NotesScreenController>(context, listen: false).getLayout();
     super.initState();
   }
 
@@ -29,25 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<NotesScreenController>(context);
     return Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 40,
-              ),
-              CircleAvatar(
-                radius: 35,
-                backgroundColor: Colors.amber,
-              ),
-              Text(
-                "muneef",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Container()
-            ],
-          ),
-        ),
-        backgroundColor: Color.fromARGB(66, 80, 78, 78),
+        backgroundColor: Color(ColorConstants.bg.value),
         appBar: appbar(context),
         floatingActionButton: FloatingButtom(),
         body: PageView(
@@ -81,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Color(
                                               provider.noteList[index].color),
                                         )));
-                                setState(() {});
                               },
                               child: NotesCard(
                                 index: index,
@@ -92,6 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Color(provider.noteList[index].color),
                                 onDelete: () {
                                   provider.deleteNote(index);
+                                  MotionToast.delete(
+                                    height: 120,
+                                    position: MotionToastPosition.top,
+                                    title: Text("Deletion Successfu"),
+                                    description: Text(
+                                        "Your note has been deleted successfully. Enjoy a clutter-free workspace!"),
+                                  ).show(context);
                                   setState(() {});
                                 },
                               ),

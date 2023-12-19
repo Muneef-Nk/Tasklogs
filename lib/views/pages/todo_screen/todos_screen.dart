@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:note_app/controller/todo_screen_controller.dart';
 import 'package:note_app/model/todo_model/todo_model.dart';
+import 'package:note_app/utils/color_constants/color_constants.dart';
 import 'package:provider/provider.dart';
 
 class TodoScreen extends StatefulWidget {
@@ -21,9 +22,8 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoScreenController>(context);
-
     return Scaffold(
-      backgroundColor: Color.fromARGB(66, 29, 28, 28),
+      backgroundColor: Color(ColorConstants.bg1.value),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,8 +31,8 @@ class _TodoScreenState extends State<TodoScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Text(
-                "Pending Task",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                "Pending Tasks",
+                style: TextStyle(color: ColorConstants.white, fontSize: 20),
               ),
             ),
             ListView.builder(
@@ -54,7 +54,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                 .deleteTodo(index);
                           },
                           icon: Icons.delete,
-                          backgroundColor: Colors.red,
+                          backgroundColor: ColorConstants.red,
                           borderRadius: BorderRadius.circular(15),
                         )
                       ]),
@@ -63,17 +63,17 @@ class _TodoScreenState extends State<TodoScreen> {
                             left: 10, right: 15, top: 10, bottom: 10),
                         margin: EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width * 0.95,
-                        // height: 80,
                         decoration: BoxDecoration(
-                            color: Colors.grey[900],
+                            color: ColorConstants.dark,
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
-                              activeColor: Colors.green,
+                              activeColor: ColorConstants.green,
                               value: provider.todoList[index].isCompleted,
-                              side: BorderSide(color: Colors.white, width: 2),
+                              side: BorderSide(
+                                  color: ColorConstants.white, width: 2),
                               onChanged: (bool? newValue) {
                                 //check box
                                 Provider.of<TodoScreenController>(context,
@@ -92,17 +92,14 @@ class _TodoScreenState extends State<TodoScreen> {
                                         provider.todoList[index].isCompleted,
                                   ),
                                 );
-
-                                setState(() {});
                               },
                             ),
                             Container(
-                              // color: Colors.amber,
                               width: 160,
                               child: Text(
                                 provider.todoList[index].task,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: ColorConstants.white,
                                   fontSize: 18,
                                 ),
                               ),
@@ -113,16 +110,16 @@ class _TodoScreenState extends State<TodoScreen> {
                               decoration: BoxDecoration(
                                   color: provider.todoList[index].priority ==
                                           "Low priority"
-                                      ? Colors.red
+                                      ? ColorConstants.red
                                       : provider.todoList[index].priority ==
                                               "Medium priority"
-                                          ? Color.fromARGB(255, 208, 191, 37)
-                                          : Colors.green,
+                                          ? ColorConstants.yellow
+                                          : ColorConstants.green,
                                   borderRadius: BorderRadius.circular(7)),
                               child: Text(
                                 provider.todoList[index].priority,
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: ColorConstants.white,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -134,10 +131,10 @@ class _TodoScreenState extends State<TodoScreen> {
                   );
                 }),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
               child: Text(
-                "Completed Task",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                "Completed Tasks",
+                style: TextStyle(color: ColorConstants.white, fontSize: 20),
               ),
             ),
             ListView.builder(
@@ -159,7 +156,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                 .deleteCompletedTodo(index);
                           },
                           icon: Icons.delete,
-                          backgroundColor: Colors.red,
+                          backgroundColor: ColorConstants.red,
                           borderRadius: BorderRadius.circular(15),
                         )
                       ]),
@@ -168,17 +165,16 @@ class _TodoScreenState extends State<TodoScreen> {
                             left: 10, right: 15, top: 10, bottom: 10),
                         margin: EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width * 0.95,
-                        // height: 80,
                         decoration: BoxDecoration(
-                            color: Colors.grey[900],
+                            color: ColorConstants.dark,
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
-                              activeColor: Colors.green,
+                              activeColor: Color.fromARGB(255, 65, 69, 60),
                               value: provider.completedList[index].isCompleted,
-                              side: BorderSide(color: Colors.white, width: 2),
+                              side: BorderSide(color: Colors.grey, width: 2),
                               onChanged: (bool? newValue) {
                                 // check box
                                 Provider.of<TodoScreenController>(context,
@@ -198,7 +194,6 @@ class _TodoScreenState extends State<TodoScreen> {
                                         .completedList[index].isCompleted,
                                   ),
                                 );
-                                setState(() {});
                               },
                             ),
                             SizedBox(
@@ -206,7 +201,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               child: Text(
                                 provider.completedList[index].task,
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.grey,
                                     fontSize: 18,
                                     decoration: TextDecoration.lineThrough),
                               ),
@@ -218,17 +213,17 @@ class _TodoScreenState extends State<TodoScreen> {
                                   color: provider
                                               .completedList[index].priority ==
                                           "Low priority"
-                                      ? Colors.red
+                                      ? const Color.fromARGB(255, 155, 58, 58)
                                       : provider.completedList[index]
                                                   .priority ==
                                               "Medium priority"
-                                          ? Color.fromARGB(255, 208, 191, 37)
-                                          : Colors.green,
+                                          ? Color.fromARGB(255, 93, 87, 30)
+                                          : Color.fromARGB(255, 44, 74, 45),
                                   borderRadius: BorderRadius.circular(7)),
                               child: Text(
                                 provider.completedList[index].priority,
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.grey,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold),
                               ),

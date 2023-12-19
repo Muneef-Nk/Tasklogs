@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
-  // static List<Color> color = [
-  //   Color.fromARGB(255, 4, 78, 60),
-  //   Color.fromARGB(255, 236, 96, 86),
-  //   Colors.yellow,
-  //   Colors.green,
-  //   Colors.cyan,
-  //   Colors.orange,
-  //   Colors.deepPurpleAccent,
-  //   Colors.brown,
-  //   Colors.lime,
-  //   Colors.pink,
-  //   Colors.tealAccent,
-  //   Colors.deepOrange,
-  //   Colors.greenAccent,
-  // ];
   static List<int> color = [
     Color.fromARGB(95, 42, 40, 40).value,
     Color.fromARGB(255, 236, 96, 86).value,
@@ -31,4 +16,12 @@ class ColorConstants {
     Colors.deepOrange.value,
     Colors.greenAccent.value,
   ];
+
+  static Color bg = Color.fromARGB(66, 80, 78, 78);
+  static Color bg1 = Color.fromARGB(255, 24, 23, 23);
+  static Color white = Colors.white;
+  static Color red = Colors.red;
+  static Color green = Colors.green;
+  static Color yellow = Color.fromARGB(255, 208, 191, 37);
+  static Color? dark = Colors.grey[900];
 }

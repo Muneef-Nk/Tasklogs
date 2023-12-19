@@ -4,6 +4,7 @@ import 'package:note_app/model/note_model/data_model.dart';
 
 class NotesScreenController with ChangeNotifier {
   var box = Hive.box<NoteModel>('notesBox');
+  var gridBox = Hive.box('layoutBox');
 
   List<NoteModel> noteList = [];
   List<NoteModel> newNoteList = [];
@@ -23,28 +24,34 @@ class NotesScreenController with ChangeNotifier {
   //changeGridtoList
   changeGridtoList() {
     isGrid = !isGrid;
+    gridBox.put('isGrid', isGrid);
     notifyListeners();
   }
 
-//add notes
+  getLayout() {
+    isGrid = gridBox.get("isGrid");
+    notifyListeners();
+  }
+
+  //add notes
   void addNotes(NoteModel noteModel) async {
     await box.add(noteModel);
     notifyListeners();
   }
 
-//delete notes
+  //delete notes
   void deleteNote(int index) {
     noteList.removeAt(index);
     box.deleteAt(index);
   }
 
-//get notes
+  //get notes
   getNotes() async {
     noteList = await box.values.toList();
     notifyListeners();
   }
 
-//update notes
+  //update notes
   updateNotes(int index, NoteModel noteModel) async {
     print("data updated");
     await box.putAt(index, noteModel);

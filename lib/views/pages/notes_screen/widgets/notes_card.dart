@@ -28,7 +28,6 @@ class _NotesCardState extends State<NotesCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 150,
       padding: EdgeInsets.all(10),
       margin: widget.isGrid
           ? EdgeInsets.only(bottom: 20, left: 10, right: 10)

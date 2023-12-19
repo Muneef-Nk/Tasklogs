@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lottie/lottie.dart';
 import 'package:note_app/controller/notes_screen_controller.dart';
+import 'package:note_app/utils/color_constants/color_constants.dart';
 import 'package:note_app/views/pages/details_screen/details_screen.dart';
 import 'package:note_app/views/pages/notes_screen/widgets/notes_card.dart';
 import 'package:provider/provider.dart';
@@ -22,12 +23,11 @@ class _NoteSearchState extends State<NoteSearch> {
   }
 
   TextEditingController _searchQuery = TextEditingController();
-  bool isNotContain = false;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NotesScreenController>(context);
     return Scaffold(
-        backgroundColor: Color.fromARGB(66, 29, 28, 28),
+        backgroundColor: ColorConstants.bg1,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -69,7 +69,8 @@ class _NoteSearchState extends State<NoteSearch> {
                 Lottie.asset("assets/animation/notfound.json")
               else
                 Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 10, right: 10, bottom: 10),
                   child: MasonryGridView.builder(
                     shrinkWrap: true,
                     itemCount: provider.newNoteList.length,
