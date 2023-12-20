@@ -55,9 +55,24 @@ class _DetailScreenState extends State<DetailScreen> {
           child: GestureDetector(
             onTap: () {
               Provider.of<NotesScreenController>(context, listen: false)
+                  .updateNotes(
+                      widget.index,
+                      NoteModel(
+                        color: provider.noteList[widget.index].color,
+                        title: _titileController.text,
+                        description: _descriptionController.text,
+                        dateTime: provider.noteList[widget.index].dateTime,
+                      ));
+
+              Provider.of<NotesScreenController>(context, listen: false)
+                  .getNotes();
+
+              Provider.of<NotesScreenController>(context, listen: false)
                       .newNoteList =
                   Provider.of<NotesScreenController>(context, listen: false)
                       .noteList;
+
+              setState(() {});
 
               Navigator.of(context).pop();
             },
@@ -169,9 +184,11 @@ class _DetailScreenState extends State<DetailScreen> {
                       .getNotes();
                 },
                 controller: _titileController,
+                maxLines: null,
+                textInputAction: TextInputAction.done,
                 decoration: InputDecoration(border: InputBorder.none),
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
@@ -204,8 +221,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   Provider.of<NotesScreenController>(context, listen: false)
                       .getNotes();
                 },
-                maxLines: 1000,
                 decoration: InputDecoration(border: InputBorder.none),
+                maxLines: null,
                 controller: _descriptionController,
                 style: TextStyle(fontSize: 18, color: Colors.white),
                 textAlign: TextAlign.justify,
