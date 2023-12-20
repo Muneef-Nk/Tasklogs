@@ -1,6 +1,10 @@
 Notes App using hive
 
-<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/8e378d29-82a9-4587-b43b-dc968c82f29a" width="200" height="400"/>
-<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/85989524-ea1f-4f14-a918-9553537b2fb4" width="200" height="400"/>
-<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/6aeb708e-2698-4c0a-9d4a-1d835eb34ff3" width="200" height="400"/>
-<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/6dc48a84-71d2-41ac-a0cd-028d4c4da19a" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/7d0d7850-2e82-4e88-9aca-156e71b207c8" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/08936ee6-0e26-4123-b4e2-095d6599a70f" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/01f75a6a-16c7-4f52-a6fc-35ee59d3f2f4" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/9cf407b0-c91f-4fb9-ab37-0b9ae1cc98cb" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/af97d538-c7a2-418c-a6d8-5bc3f717c6f1" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/dbdd0e66-618a-4884-9741-83f156107331" width="200" height="400"/>
+<img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/0d0d365c-d320-421e-87bc-a3deae07baf1" width="200" height="400"/>
+
