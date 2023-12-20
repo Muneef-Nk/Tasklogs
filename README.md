@@ -1,4 +1,4 @@
-Notes App using hive
+some screenshots
 
 <img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/7d0d7850-2e82-4e88-9aca-156e71b207c8" width="200" height="400"/>
 <img src="https://github.com/Muneef-Nk/flutter_notes_app_using_hive/assets/92105703/08936ee6-0e26-4123-b4e2-095d6599a70f" width="200" height="400"/>
